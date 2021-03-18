@@ -1,0 +1,17 @@
+#user-header {
+    --avatar-size: 8rem;
+
+    background-color: var(--ion-color-primary);
+
+    h3 {
+        color: var(--ion-color-primary-contrast);
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    ion-avatar {
+        height: var(--avatar-size, 8rem);
+        margin: auto;
+        width: var(--avatar-size, 8rem);
+    }
+}

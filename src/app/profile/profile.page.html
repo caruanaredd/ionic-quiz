@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="user-header" class="ion-padding">
+    
+    <!-- User Avatar (Profile Picture) -->
+    <ion-avatar>
+      <img src="assets/shapes.svg" alt="">
+    </ion-avatar>
+
+    <!-- Username -->
+    <div class="ion-text-center">
+      <h3 *ngIf="name || surname">{{ name }} {{ surname }}</h3>
+      <h3 *ngIf="!name && !surname">Guest User</h3>
+    </div>
+  </div>
+
+  <ion-list>
+
+    <!-- Name Input -->
+    <ion-item>
+      <ion-label position="floating">
+        Name
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+
+      <ion-input clearInput [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <!-- End Name Input -->
+
+    <!-- Surname Input -->
+    <ion-item>
+      <ion-label position="floating">
+        Surname
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+
+      <ion-input clearInput [(ngModel)]="surname"></ion-input>
+    </ion-item>
+    <!-- End Surname Input -->
+
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    class="ion-no-margin"
+    expand="full"
+    [disabled]="!name || !surname">Start Quiz</ion-button>
+</ion-footer>
