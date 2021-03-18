@@ -1,20 +1,37 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content fullscreen>
+  <ion-slides pager>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <!-- Slide 1 -->
+    <ion-slide>
+      <ion-icon name="help"></ion-icon>
+      <h3>Welcome to Ionic Quiz!</h3>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+      <p class="ion-padding">
+        This example was created using the
+        <strong>blank Ionic starter template</strong>.
+      </p>
+    </ion-slide>
+
+    <!-- Slide 2 -->
+    <ion-slide>
+      <ion-icon name="glasses"></ion-icon>
+      <h3>Test Your Knowledge!</h3>
+
+      <p class="ion-padding">
+        Are you confident in your skills?
+      </p>
+    </ion-slide>
+
+    <!-- Slide 3 -->
+    <ion-slide>
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      <h3>Are You Ready?</h3>
+
+      <ion-button fill="clear" routerLink="/profile">
+        Get Started
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+    </ion-slide>
+
+  </ion-slides>
 </ion-content>
