@@ -13,15 +13,17 @@
   <ion-progress-bar value="0.5"></ion-progress-bar>
 
   <h3 class="ion-padding ion-text-center" id="question">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, fuga!
+    {{ question.text }}
   </h3>
 
   <ion-list>
-    <ion-radio-group>
+    <ion-radio-group [(ngModel)]="chosenAnswer">
 
-      <ion-item *ngFor="let n of [1, 2, 3, 4]">
-        <ion-label>Mock answer {{ n }}</ion-label>
-        <ion-radio></ion-radio>
+      <ion-item
+        [disabled]="submitted"
+        *ngFor="let answer of question.answers; let i = index">
+        <ion-label>{{ answer.text }}</ion-label>
+        <ion-radio [value]="i"></ion-radio>
       </ion-item>
 
     </ion-radio-group>
@@ -31,6 +33,9 @@
 <ion-footer>
   <ion-button
     class="ion-no-margin"
-    expand="full">
-    Next</ion-button>
+    expand="full"
+    [disabled]="chosenAnswer == -1"
+    (click)="onSubmitAnswer()">
+  {{ submitted ? "Next" : "Submit" }}
+  </ion-button>
 </ion-footer>
