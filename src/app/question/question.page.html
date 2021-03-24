@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>question</ion-title>
+    <ion-title>Quiz</ion-title>
+
+    <!-- Buttons to the right of the screen -->
+    <ion-buttons slot="end">
+      <ion-button>Quit</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-progress-bar value="0.5"></ion-progress-bar>
 
+  <h3 class="ion-padding ion-text-center" id="question">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, fuga!
+  </h3>
+
+  <ion-list>
+    <ion-radio-group>
+
+      <ion-item *ngFor="let n of [1, 2, 3, 4]">
+        <ion-label>Mock answer {{ n }}</ion-label>
+        <ion-radio></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-button
+    class="ion-no-margin"
+    expand="full">
+    Next</ion-button>
+</ion-footer>
