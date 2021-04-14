@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Question } from '../struct/question';
 import { QUESTIONS } from '../struct/question-data';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,9 @@ export class QuizService
     {
       this._bestScore = this._lastScore;
     }
+
+    this.storageService.set('lastScore', this._lastScore);
+    this.storageService.set('bestScore', this._bestScore);
   }
 
   /**
@@ -55,5 +59,18 @@ export class QuizService
     return QUESTIONS;
   }
 
-  constructor() { }
+  constructor(
+    private storageService: StorageService
+  ) {
+    this.init();
+  }
+
+  /**
+   * Initializes the service.
+   */
+  private async init()
+  {
+    this._lastScore = await this.storageService.get('lastScore') || 0;
+    this._bestScore = await this.storageService.get('bestScore') || 0;
+  }
 }

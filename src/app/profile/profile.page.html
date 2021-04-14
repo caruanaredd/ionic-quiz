@@ -28,7 +28,7 @@
         <ion-text color="danger">*</ion-text>
       </ion-label>
 
-      <ion-input clearInput [(ngModel)]="name"></ion-input>
+      <ion-input clearInput [(ngModel)]="name" (ionChange)="onChange('name', $event)"></ion-input>
     </ion-item>
     <!-- End Name Input -->
 
@@ -39,7 +39,7 @@
         <ion-text color="danger">*</ion-text>
       </ion-label>
 
-      <ion-input clearInput [(ngModel)]="surname"></ion-input>
+      <ion-input clearInput [(ngModel)]="surname" (ionChange)="onChange('surname', $event)"></ion-input>
     </ion-item>
     <!-- End Surname Input -->
 
