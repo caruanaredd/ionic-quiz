@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-progress-bar value="0.5"></ion-progress-bar>
+  <ion-progress-bar [value]="progress"></ion-progress-bar>
 
   <h3 class="ion-padding ion-text-center" id="question">
     {{ question.text }}
@@ -20,6 +20,7 @@
     <ion-radio-group [(ngModel)]="chosenAnswer">
 
       <ion-item
+        [color]="getAnswerColor(answer)"
         [disabled]="submitted"
         *ngFor="let answer of question.answers; let i = index">
         <ion-label>{{ answer.text }}</ion-label>

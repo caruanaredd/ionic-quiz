@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { QuizService } from '../services/quiz.service';
-import { Question } from '../struct/question';
+import { Answer, Question } from '../struct/question';
 
 @Component({
   selector: 'app-question',
@@ -23,6 +23,16 @@ export class QuestionPage implements OnInit
   // Whether or not the answer was submitted.
   public submitted: boolean = false;
 
+  // The number of answers that were correct.
+  private _correctAnswers: number = 0;
+
+  // Read-only variable: Quiz progress
+  public get progress(): number
+  {
+    // current question index / total number of questions
+    return (this._questionIndex + 1) / this.quizService.count;
+  }
+
   constructor(
     private alertCtrl: AlertController,
     private router: Router,
@@ -33,6 +43,25 @@ export class QuestionPage implements OnInit
   ngOnInit()
   {
     this.nextQuestion();
+  }
+
+  /**
+   * Returns an answer's highlight color.
+   * @param answer The answer to check.
+   * @returns The color for that answer.
+   */
+  getAnswerColor(answer: Answer): string
+  {
+    // if there was no submission, return null.
+    if (!this.submitted) return null;
+
+    // if the answer is correct, return success.
+    if (answer.correct) return 'success';
+
+    // if the answer is not correct and is the one the user chose, return danger.
+    if (answer == this.question.answers[this.chosenAnswer]) return 'danger';
+    
+    return null;
   }
 
   /**
@@ -75,13 +104,21 @@ export class QuestionPage implements OnInit
       // if not, redirect to the profile page.
       else
       {
-        this.router.navigateByUrl('/profile', { replaceUrl: true });
+        this.quizService.lastScore = this._correctAnswers;
+        this.router.navigateByUrl('/results', { replaceUrl: true });
       }
     }
     else
     {
       // change the submitted value to true.
       this.submitted = true;
+
+      // check if the answer is correct.
+      if (this.question != null &&
+          this.question.answers[this.chosenAnswer].correct)
+      {
+        this._correctAnswers++;
+      }
     }
   }
 

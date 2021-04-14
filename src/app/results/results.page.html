@@ -1,0 +1,14 @@
+<ion-content>
+  <div class="result-container ion-padding">
+    <ion-icon [name]="iconName" [color]="iconColor"></ion-icon>
+    <h3>{{ heading }}</h3>
+    <ion-text color="medium">{{ message }}</ion-text>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    class="ion-no-margin"
+    expand="full"
+    routerLink="/profile">Start Over</ion-button>
+</ion-footer>

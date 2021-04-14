@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { QuizService } from '../services/quiz.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,9 @@ export class ProfilePage implements OnInit
   // The user's surname.
   public surname: string = "Caruana";
 
-  constructor() { }
+  constructor(
+    public quizService: QuizService
+  ) { }
 
   ngOnInit() {
   }

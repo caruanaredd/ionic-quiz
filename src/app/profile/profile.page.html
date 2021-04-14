@@ -43,6 +43,19 @@
     </ion-item>
     <!-- End Surname Input -->
 
+    <!-- User Stats -->
+    <ion-list-header>Stats</ion-list-header>
+
+    <ion-item>
+      <ion-label position="floating">High Score</ion-label>
+      <ion-input readonly value="{{ quizService.bestScore | percent }}"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Last Score</ion-label>
+      <ion-input readonly value="{{ quizService.lastScore | percent }}"></ion-input>
+    </ion-item>
+    <!-- End User Stats -->
   </ion-list>
 </ion-content>
 
