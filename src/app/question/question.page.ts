@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { QuizService } from '../services/quiz.service';
-import { Answer, Question } from '../struct/question';
+import { StorageService } from '../services/storage.service';
+import { Answer, HistoryItem, Question } from '../struct/question';
 
 @Component({
   selector: 'app-question',
@@ -11,6 +12,8 @@ import { Answer, Question } from '../struct/question';
 })
 export class QuestionPage implements OnInit
 {
+  private _lockedQuestions: Question[] = [];
+
   public question: Question = null;
 
   // The answer clicked in the list.
@@ -26,6 +29,9 @@ export class QuestionPage implements OnInit
   // The number of answers that were correct.
   private _correctAnswers: number = 0;
 
+  // The starting time of this page.
+  private _startTime: number = null;
+
   // Read-only variable: Quiz progress
   public get progress(): number
   {
@@ -37,12 +43,19 @@ export class QuestionPage implements OnInit
     private alertCtrl: AlertController,
     private router: Router,
 
-    private quizService: QuizService
+    private quizService: QuizService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit()
   {
     this.nextQuestion();
+  }
+
+  ionViewDidEnter()
+  {
+    // Register the start time when the page transition ends.
+    this._startTime = new Date().getTime();
   }
 
   /**
@@ -75,6 +88,9 @@ export class QuestionPage implements OnInit
     // Set the current question again.
     this.question = this.quizService.questions[this._questionIndex];
 
+    // Unset all the chosen properties for all answers.
+    this.question.answers.map(a => a.chosen = false);
+
     // Reset the chosen answer.
     this.chosenAnswer = -1;
 
@@ -104,6 +120,7 @@ export class QuestionPage implements OnInit
       // if not, redirect to the profile page.
       else
       {
+        this.save();
         this.quizService.lastScore = this._correctAnswers;
         this.router.navigateByUrl('/results', { replaceUrl: true });
       }
@@ -112,6 +129,10 @@ export class QuestionPage implements OnInit
     {
       // change the submitted value to true.
       this.submitted = true;
+
+      //  Mark the answer as chosen and record it.
+      this.question.answers[this.chosenAnswer].chosen = true;
+      this._lockedQuestions.push(this.question);
 
       // check if the answer is correct.
       if (this.question != null &&
@@ -140,6 +161,7 @@ export class QuestionPage implements OnInit
         {
           text: "Yes",
           handler: () => {
+            this.save();
             this.router.navigateByUrl('/profile', { replaceUrl: true });
           }
         }
@@ -147,5 +169,26 @@ export class QuestionPage implements OnInit
     });
     
     alert.present();
+  }
+
+  /**
+   * Saves the quiz progress.
+   */
+  async save()
+  {
+    // get the history if it exists.
+    const history: HistoryItem[] = await this.storageService.get('history') || [];
+
+    // add the current session to the history.
+    history.push({
+      startTime: this._startTime,
+      endTime: new Date().getTime(),
+      questions: this._lockedQuestions,
+      score: this._correctAnswers / this.quizService.count,
+      complete: this._lockedQuestions.length == this.quizService.count,
+    });
+
+    // set the history record again.
+    this.storageService.set('history', history);
   }
 }

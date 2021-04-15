@@ -9,6 +9,11 @@ export interface Answer
      * [OPTIONAL] Whether or not this answer is the correct one.
      */
     correct?: boolean;
+
+    /**
+     * [OPTIONAL] Whether or not this answer was chosen.
+     */
+    chosen?: boolean;
 }
 
 export interface Question
@@ -27,4 +32,17 @@ export interface Question
      * [OPTIONAL] true if the answers should be randomized.
      */
     randomize?: boolean;
+}
+
+export interface HistoryItem
+{
+    startTime: number;
+
+    endTime: number;
+
+    score: number;
+
+    complete?: boolean;
+
+    questions: Question[];
 }

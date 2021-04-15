@@ -1,3 +1,24 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane contentId="main-content" type="overlay">
+    <ion-menu side="start" contentId="main-content">
+      <ion-header>
+        <ion-toolbar color="dark">
+          <ion-title>Ionic Quiz</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerLink="/profile">
+              <ion-icon slot="start" name="person"></ion-icon>
+              Profile
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
 </ion-app>
