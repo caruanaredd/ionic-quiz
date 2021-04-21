@@ -8,11 +8,11 @@
       </ion-header>
 
       <ion-content>
-        <ion-list>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item routerLink="/profile">
-              <ion-icon slot="start" name="person"></ion-icon>
-              Profile
+        <ion-list lines="full">
+          <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
+            <ion-item [routerLink]="page.url" routerDirection="root">
+              <ion-icon slot="start" [name]="page.icon"></ion-icon>
+              {{ page.name }}
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
