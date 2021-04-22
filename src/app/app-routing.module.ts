@@ -25,7 +25,16 @@ const routes: Routes = [
   },
   {
     path: 'history',
-    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+      },
+      {
+        path: ':id',
+        loadChildren: () => import('./history-item/history-item.module').then( m => m.HistoryItemPageModule)
+      },
+    ]
   },
 ];
 

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/history"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title *ngIf="data">22 Apr 2021</ion-title>
+    <ion-title *ngIf="!data">Invalid Session</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding ion-text-center" *ngIf="!data">
+    This session does not exist.
+  </div>
+
+  <ion-slides pager *ngIf="data">
+    <ion-slide class="metrics">
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Start Time</ion-label>
+          <ion-input readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Duration</ion-label>
+          <ion-input readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Score</ion-label>
+          <ion-input readonly="true"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+
+    <ion-slide>
+      <h3 class="ion-padding">Question</h3>
+
+      <ion-list>
+        <ion-item>
+          Answer
+          <ion-icon name="checkmark" slot="end"></ion-icon>
+          <ion-icon name="close" slot="end"></ion-icon>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
