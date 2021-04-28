@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { HistoryItemPageRoutingModule } from './history-item-routing.module';
 
 import { HistoryItemPage } from './history-item.page';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HistoryItemPageRoutingModule
+    HistoryItemPageRoutingModule,
+    PipesModule
   ],
   declarations: [HistoryItemPage]
 })

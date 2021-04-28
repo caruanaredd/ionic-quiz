@@ -4,11 +4,12 @@
       <ion-back-button defaultHref="/history"></ion-back-button>
     </ion-buttons>
 
-    <ion-title *ngIf="data">22 Apr 2021</ion-title>
+    <ion-title *ngIf="data">{{ data.startTime | date:'dd MMM YYYY' }}</ion-title>
     <ion-title *ngIf="!data">Invalid Session</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button>
+      <!-- Choose either *ngIf or [disabled] -->
+      <ion-button *ngIf="data" [disabled]="!data">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -25,29 +26,35 @@
       <ion-list>
         <ion-item>
           <ion-label position="stacked">Start Time</ion-label>
-          <ion-input readonly="true"></ion-input>
+          <ion-input readonly="true" value="{{ data.startTime | date:'HH:mm' }}"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Duration</ion-label>
-          <ion-input readonly="true"></ion-input>
+          <ion-input readonly="true" value="{{ duration | duration }}"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Score</ion-label>
-          <ion-input readonly="true"></ion-input>
+          <ion-input readonly="true" value="{{ (data.score || 0) | percent }}"></ion-input>
         </ion-item>
       </ion-list>
     </ion-slide>
 
-    <ion-slide>
-      <h3 class="ion-padding">Question</h3>
+    <ion-slide *ngFor="let question of data.questions">
+      <h3 class="ion-padding">{{ question.text }}</h3>
 
       <ion-list>
-        <ion-item>
-          Answer
-          <ion-icon name="checkmark" slot="end"></ion-icon>
-          <ion-icon name="close" slot="end"></ion-icon>
+        <ion-item
+          *ngFor="let answer of question.answers"
+          [color]="answer.correct ? 'success' : answer.chosen ? 'danger' : null">
+          {{ answer.text }}
+          <ion-icon name="checkmark" slot="end" *ngIf="answer.correct"></ion-icon>
+          <ion-icon name="close" slot="end" *ngIf="!answer.correct && answer.chosen"></ion-icon>
         </ion-item>
       </ion-list>
+    </ion-slide>
+
+    <ion-slide class="incomplete" *ngIf="!data.complete">
+      You didn't complete this session.
     </ion-slide>
   </ion-slides>
 </ion-content>

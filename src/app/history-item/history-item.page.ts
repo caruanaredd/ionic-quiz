@@ -13,6 +13,9 @@ export class HistoryItemPage implements OnInit
   // The history item being viewed.
   data: HistoryItem = null;
 
+  // The duration of this session.
+  duration: number = 0;
+
   constructor(
     private route: ActivatedRoute,
     private storageService: StorageService
@@ -29,6 +32,7 @@ export class HistoryItemPage implements OnInit
     if (history.length > id)
     {
       this.data = history[id];
+      this.duration = this.data.endTime - this.data.startTime;
     }
   }
 
