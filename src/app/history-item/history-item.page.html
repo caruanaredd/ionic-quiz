@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/history"></ion-back-button>
+      <ion-back-button defaultHref="/history" *ngIf="!this.isModal"></ion-back-button>
+      <ion-button *ngIf="this.isModal" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
 
     <ion-title *ngIf="data">{{ data.startTime | date:'dd MMM YYYY' }}</ion-title>
@@ -9,7 +12,7 @@
 
     <ion-buttons slot="end">
       <!-- Choose either *ngIf or [disabled] -->
-      <ion-button *ngIf="data" [disabled]="!data">
+      <ion-button *ngIf="data" [disabled]="!data" (click)="delete()">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </ion-buttons>

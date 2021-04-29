@@ -7,7 +7,7 @@
     <ion-title>History</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button>Clear</ion-button>
+      <ion-button (click)="clear()">Clear</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +19,7 @@
   </div>
 
   <ion-list *ngIf="history.length > 0">
-    <ion-item-sliding *ngFor="let item of history; let i = index">
+    <ion-item-sliding *ngFor="let item of history; let i = index" (ionDrag)="onSlide($event, i, options)" #options>
       <ion-item-options side="start">
         <ion-item-option color="danger" (click)="delete(i)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
