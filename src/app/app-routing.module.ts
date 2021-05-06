@@ -36,6 +36,14 @@ const routes: Routes = [
       },
     ]
   },
+  {
+    path: 'gallery',
+    loadChildren: () => import('./gallery/gallery.module').then( m => m.GalleryPageModule)
+  },
+  {
+    path: 'album-selector',
+    loadChildren: () => import('./album-selector/album-selector.module').then( m => m.AlbumSelectorPageModule)
+  },
 ];
 
 @NgModule({

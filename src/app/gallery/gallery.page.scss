@@ -1,0 +1,19 @@
+.gallery {
+    --grid-size: 3;
+    --margin-size: 2px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    .image-container {
+        margin-left: var(--margin-size);
+        margin-top: var(--margin-size);
+        width: calc((100% - (var(--margin-size) * (var(--grid-size) + 1))) / var(--grid-size));
+
+        .image-inner {
+            background-position: center center;
+            background-size: cover;
+            padding-bottom: 100%;
+        }
+    }
+}
