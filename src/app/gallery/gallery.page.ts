@@ -20,9 +20,29 @@ export class GalleryPage implements OnInit
     private albumService: AlbumService
   ) { }
 
-  ngOnInit()
+  async ngOnInit()
   {
+    // waits for the album service to start.
+    await this.albumService.init();
     this.photos = this.albumService.getPhotos();
+  }
+
+  chooseImage(photo: Photo)
+  {
+    this.modalCtrl.dismiss(photo);
+  }
+
+  dismiss()
+  {
+    this.modalCtrl.dismiss(null, 'cancel');
+  }
+
+  getPhotoUri(photo: Photo): string
+  {
+    if (photo.base64Data) return `url(${photo.base64Data})`;
+    if (photo.webViewPath) return `url(${photo.webViewPath})`;
+    if (photo.filePath) return `url(${photo.filePath})`;
+    return 'url(assets/shapes.svg)';
   }
 
   async openAlbums()

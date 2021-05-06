@@ -11,8 +11,8 @@
   <div id="user-header" class="ion-padding">
     
     <!-- User Avatar (Profile Picture) -->
-    <ion-avatar>
-      <img src="assets/shapes.svg" alt="">
+    <ion-avatar (click)="openGallery()">
+      <img src="{{ avatarSrc || 'assets/shapes.svg' }}" alt="">
     </ion-avatar>
 
     <!-- Username -->
